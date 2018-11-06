@@ -1,45 +1,33 @@
+# 第2章节
+1、官网tar安装（brew安装后集群有问题）
+/Users/sunyifeng/program/zookeeper-3.4.10
 
-# 第1部分格式 标题与文字格式
-标题
-# 这是 H1 <一级标题>
-## 这是 H2 <二级标题>
-###### 这是 H6 <六级标题>
-文字格式
-**这是文字粗体格式**
-*这是文字斜体格式*
-~~在文字上添加删除线~~
+2、启动服务器
+bin/zkServer.sh start
 
-# 第2部分格式 列表
-无序列表
-* 项目1
-* 项目2
-* 项目3
-有序列表
-1. 项目1
-2. 项目2
-3. 项目3
-   * 项目1
-   * 项目2
+3、启动客户端
+bin/zkCli.sh
 
-# 第3部分格式  其它
-图片
-![图片名称](http://upload-images.jianshu.io/upload_images/1097226-6a6fbea43e82e7ac.png)
-链接
-[链接名称](http://gitcafe.com)
-引用
-> 第一行引用文字
-> 第二行引用文字
-水平线
-***
-代码
-`<hello world>`
-代码块高亮
-```ruby
-  def add(a, b)
-    return a + b
-  end
-表格
-  表头  | 表头
-  ------------- | -------------
- 单元格内容  | 单元格内容
- 单元格内容l  | 单元格内容
+5、停止服务器
+bin/zkServer.sh stop
+
+6、使用命令
+ls /
+create workers ""
+ls /
+delete workers ""
+ls /
+quit
+
+7、仲裁模式
+#创建三份配置文件
+cp conf/zoo_sample.cfg conf/zoo-1.cfg
+cp conf/zoo_sample.cfg conf/zoo-2.cfg
+cp conf/zoo_sample.cfg conf/zoo-3.cfg
+#启动服务端
+bin/zkServer.sh start-foreground z3/zoo-3.cfg
+bin/zkServer.sh start-foreground z3/zoo-3.cfg
+bin/zkServer.sh start-foreground z3/zoo-3.cfg
+#客户端访问
+$ZK_HOME/bin/zkCli.sh -server 127.0.0.1:2181,127.0.0.1:2183,127.0.0.1:2183
+
